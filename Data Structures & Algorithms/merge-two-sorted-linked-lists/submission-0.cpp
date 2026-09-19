@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        /***
+            Brute Force: create a vector & put in it
+                - O(N) space complexity + O(nlogn) for sortign
+            
+            Iterative approach would be two pointer traverse
+        */
+
+        ListNode* merged = new ListNode();
+        ListNode* head = merged;
+
+        while(list1 && list2){
+            if(list1->val < list2->val){
+                merged->next = new ListNode(list1->val);
+                list1 = list1->next;
+                merged = merged->next;
+            } else {
+                merged->next = new ListNode(list2->val);
+                list2 = list2->next;
+                merged = merged->next;
+            }
+        }
+
+        if(list1){
+            while(list1){
+                merged->next = new ListNode(list1->val);
+                list1 = list1->next;
+                merged = merged->next;
+            }
+        }
+
+        if(list2){
+            while(list2){
+                merged->next = new ListNode(list2->val);
+                list2 = list2->next;
+                merged = merged->next;
+            }
+        }
+
+        return head->next;
+    }
+};
